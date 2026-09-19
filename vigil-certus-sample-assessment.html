@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sample CIS IG1 Gap Assessment — Vigil Certus / Pontis</title>
+<meta name="description" content="A sample CIS Controls v8 Implementation Group 1 gap assessment, showing the format and depth of a Vigil Certus compliance readiness engagement." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --ink: #111111;
+    --ink-soft: #3a3a3a;
+    --muted: #8a8578;
+    --line: #d9d4c8;
+    --accent: #b8390e;
+    --paper: #fbfaf6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px 120px;
+  }
+
+  header {
+    padding: 32px 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+
+  .logo {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .logo-mark {
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    display: inline-block;
+    border-radius: 1px;
+  }
+
+  .back-link {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  .doc-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+
+  .subhead {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .meta-row strong { color: var(--ink); font-weight: 500; }
+
+  h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    margin: 56px 0 20px;
+    padding-top: 8px;
+  }
+
+  h2:first-of-type { margin-top: 0; }
+
+  p { margin-bottom: 16px; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 500; }
+
+  ol, ul {
+    margin: 0 0 24px 22px;
+    color: var(--ink-soft);
+  }
+  li { margin-bottom: 10px; }
+  li strong { color: var(--ink); }
+
+  .callout {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 2px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0 40px;
+    font-size: 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+  th {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: left;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-weight: 500;
+  }
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    color: var(--ink-soft);
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .status {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .status-present { background: #e4ece0; color: #3f6b2e; }
+  .status-partial { background: #f5e9d0; color: #8a6414; }
+  .status-absent { background: #f3ddd6; color: var(--accent); }
+  .status-na { background: #e8e6e0; color: var(--muted); }
+
+  .cta {
+    margin-top: 72px;
+    padding: 40px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    text-align: center;
+    border-radius: 2px;
+  }
+  .cta h3 {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .cta p { max-width: 480px; margin: 0 auto 20px; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 3px;
+  }
+  .cta-btn:hover { background: var(--accent); }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 20px 80px; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 22px; }
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tr { border-bottom: 1px solid var(--line); padding: 12px 0; }
+    td { border-bottom: none; padding: 4px 0; }
+    td::before {
+      content: attr(data-label);
+      display: block;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <a href="index.html" class="logo">
+        <span class="logo-mark"></span>
+        Pontis
+      </a>
+      <a href="index.html" class="back-link">← Back to Products</a>
+    </header>
+
+    <div class="doc-label">Vigil Certus / Sample Assessment</div>
+    <h1>CIS Controls v8 IG1 Gap Assessment</h1>
+    <p class="subhead">
+      A sample readiness review, run in the same format used for a Vigil Certus client engagement — from intake through a prioritized remediation roadmap.
+    </p>
+
+    <div class="meta-row">
+      <span>Framework: <strong>CIS Controls v8, Implementation Group 1</strong></span>
+      <span>Subject: <strong>Solo-operator SaaS business</strong></span>
+      <span>Stack: <strong>Google Workspace + CRM/automation platform</strong></span>
+    </div>
+
+    <h2>Intake Summary</h2>
+    <ul>
+      <li><strong>Team size:</strong> Solo operator (owner-only access to core systems)</li>
+      <li><strong>Core stack:</strong> Google Workspace for email, docs, and identity; a CRM/automation platform for client relationships; a payment processor for recurring billing</li>
+      <li><strong>MFA status:</strong> Enabled across email, CRM, and payment processor accounts</li>
+      <li><strong>Written policies:</strong> None currently documented</li>
+      <li><strong>Data handled:</strong> Client contact information and business data across several product lines; payment card data is processor-hosted, not stored directly</li>
+    </ul>
+
+    <h2>Why This Matters</h2>
+    <p>
+      A business selling recurring services to other companies eventually gets asked a version of "how do you protect our data," whether that's a vendor security questionnaire, a cyber insurance renewal, or a larger client doing basic diligence before signing. Most small operators have never been asked to formalize what they already do, so the gap isn't usually the technology, it's the documentation and the process behind it.
+    </p>
+
+    <h2>Gap Assessment Against CIS Controls v8, IG1</h2>
+    <p>
+      Rated Present / Partial / Absent based on intake. IG1 covers 56 safeguards across 18 controls, the baseline designed for small and resource-limited organizations. Safeguards not applicable to a solo, cloud-based operation are marked accordingly rather than scored.
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>Control</th><th>Safeguard</th><th>Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Control">1. Inventory of Enterprise Assets</td>
+          <td data-label="Safeguard">Maintain asset inventory</td>
+          <td data-label="Status"><span class="status status-partial">Partial</span></td>
+          <td data-label="Notes">Devices used to run the business exist but aren't documented anywhere</td>
+        </tr>
+        <tr>
+          <td data-label="Control">2. Inventory of Software Assets</td>
+          <td data-label="Safeguard">Maintain software/SaaS inventory</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No running list of what SaaS tools hold business or client data</td>
+        </tr>
+        <tr>
+          <td data-label="Control">3. Data Protection</td>
+          <td data-label="Safeguard">Data inventory and classification</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No documented list of what client data is collected, where it lives, or how long it's retained</td>
+        </tr>
+        <tr>
+          <td data-label="Control">3. Data Protection</td>
+          <td data-label="Safeguard">Encrypt data at rest and in transit</td>
+          <td data-label="Status"><span class="status status-present">Present</span></td>
+          <td data-label="Notes">Inherited from platform defaults; not independently verified or documented</td>
+        </tr>
+        <tr>
+          <td data-label="Control">4. Secure Configuration</td>
+          <td data-label="Safeguard">Secure default configurations</td>
+          <td data-label="Status"><span class="status status-partial">Partial</span></td>
+          <td data-label="Notes">No documented baseline for account settings across core platforms</td>
+        </tr>
+        <tr>
+          <td data-label="Control">5. Account Management</td>
+          <td data-label="Safeguard">Unique accounts, no shared logins</td>
+          <td data-label="Status"><span class="status status-present">Present</span></td>
+          <td data-label="Notes">Solo operator, no shared credentials by default</td>
+        </tr>
+        <tr>
+          <td data-label="Control">6. Access Control Management</td>
+          <td data-label="Safeguard">MFA on all accounts</td>
+          <td data-label="Status"><span class="status status-present">Present</span></td>
+          <td data-label="Notes">Confirmed across email, CRM, and payment processor</td>
+        </tr>
+        <tr>
+          <td data-label="Control">6. Access Control Management</td>
+          <td data-label="Safeguard">Centralized access control</td>
+          <td data-label="Status"><span class="status status-na">N/A yet</span></td>
+          <td data-label="Notes">Becomes relevant the moment a contractor or VA is added</td>
+        </tr>
+        <tr>
+          <td data-label="Control">7. Vulnerability Management</td>
+          <td data-label="Safeguard">Patch management</td>
+          <td data-label="Status"><span class="status status-partial">Partial</span></td>
+          <td data-label="Notes">Cloud SaaS tools patch themselves; no review process for third-party app permissions</td>
+        </tr>
+        <tr>
+          <td data-label="Control">8. Audit Log Management</td>
+          <td data-label="Safeguard">Enable and retain audit logs</td>
+          <td data-label="Status"><span class="status status-partial">Partial</span></td>
+          <td data-label="Notes">Logs generated by default; nothing reviewed or retained intentionally</td>
+        </tr>
+        <tr>
+          <td data-label="Control">9. Email/Browser Protections</td>
+          <td data-label="Safeguard">DNS filtering, anti-phishing</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No DMARC/SPF/DKIM verification confirmed for the business domain</td>
+        </tr>
+        <tr>
+          <td data-label="Control">10. Malware Defenses</td>
+          <td data-label="Safeguard">Anti-malware on all endpoints</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No confirmed endpoint protection on devices used to run the business</td>
+        </tr>
+        <tr>
+          <td data-label="Control">11. Data Recovery</td>
+          <td data-label="Safeguard">Automated backups, tested recovery</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No documented backup of CRM data or business documents outside vendor-side retention</td>
+        </tr>
+        <tr>
+          <td data-label="Control">14. Security Awareness Training</td>
+          <td data-label="Safeguard">Security awareness program</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">Not yet needed solo, becomes a real requirement with the first hire</td>
+        </tr>
+        <tr>
+          <td data-label="Control">15. Service Provider Management</td>
+          <td data-label="Safeguard">Inventory and assess service providers</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No documented list of vendors with access to client or business data</td>
+        </tr>
+        <tr>
+          <td data-label="Control">17. Incident Response Management</td>
+          <td data-label="Safeguard">Written incident response plan</td>
+          <td data-label="Status"><span class="status status-absent">Absent</span></td>
+          <td data-label="Notes">No plan exists for what happens if an account is compromised or data is exposed</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>What This Actually Means</h2>
+    <p>
+      Two encouraging findings: MFA is genuinely in place everywhere, the single highest-leverage control and the one most solo operators skip. And the core platforms provide strong baseline encryption and logging by default, so the underlying infrastructure isn't the weak point.
+    </p>
+    <p>
+      The real gap is documentation and process, not technology. Nothing here requires buying new tools. It requires writing down what already exists, adding backups, and building the two or three processes that matter most before they're urgently needed, specifically before adding a contractor, and before a client or partner asks for proof.
+    </p>
+
+    <h2>Prioritized Remediation Roadmap</h2>
+
+    <p><strong>Do first — this month, low effort, highest leverage:</strong></p>
+    <ol>
+      <li>Turn on automated backup/export for CRM data and business documents. This is the largest actual exposure right now, since there is currently no recovery path if access is lost or an account is compromised.</li>
+      <li>Verify SPF/DKIM/DMARC are correctly configured on the sending domain. Affects email deliverability and closes a phishing/spoofing gap.</li>
+      <li>Write a one-page software/SaaS inventory: every tool with access to client or business data, what it touches, who has login access.</li>
+    </ol>
+
+    <p><strong>Do next — before adding any contractor or VA:</strong></p>
+    <ol>
+      <li>Draft a written information security policy covering account access, data handling, and device use.</li>
+      <li>Draft a one-page incident response plan: what to do first if an account is compromised, who to notify, how to rotate credentials.</li>
+      <li>Set up endpoint protection on the primary device(s) used to run the business.</li>
+    </ol>
+
+    <p><strong>Do before it's asked for — positions the business ahead of a client or partner request:</strong></p>
+    <ol>
+      <li>Build a vendor/service provider inventory documenting what each platform does with client data, and where their own compliance posture stands.</li>
+      <li>Establish a quarterly review cadence: revisit the software inventory, confirm backups are working, confirm MFA is still enforced everywhere.</li>
+    </ol>
+
+    <h2>Evidence Folder Starter</h2>
+    <p>Once the items above are complete, the following should be kept on file and easy to produce on request:</p>
+    <ul>
+      <li>Screenshot or export confirming MFA enforcement across all core platforms</li>
+      <li>SPF/DKIM/DMARC verification record</li>
+      <li>Backup configuration confirmation and one successful test restore</li>
+      <li>Signed information security policy and incident response plan</li>
+      <li>Software/vendor inventory, dated and version-controlled</li>
+    </ul>
+
+    <div class="callout">
+      <p>
+        This is the exact format a Vigil Certus engagement delivers: an honest gap assessment, a plain-language read on what it actually means, and a roadmap ordered by what matters most first, not by what's easiest to bill. No engagement starts with a sales pitch. It starts with this.
+      </p>
+    </div>
+
+    <div class="cta">
+      <h3>Have a questionnaire or renewal on your desk?</h3>
+      <p>Send it over. We'll tell you exactly where the gaps are and what it takes to close them, before you commit to anything.</p>
+      <a class="cta-btn" href="mailto:hello@pontislink.com?subject=Vigil%20Certus%20Sample%20Request">Request Your Own Assessment →</a>
+    </div>
+
+    <footer>
+      Vigil Certus — a Pontis product · Sample document for illustration purposes
+    </footer>
+
+  </div>
+</body>
+</html>
